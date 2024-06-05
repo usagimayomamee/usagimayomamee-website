@@ -1,4 +1,5 @@
-body {
+body,
+html {
   font-family: "Arial", sans-serif;
   margin: 0;
   padding: 0;
@@ -6,6 +7,7 @@ body {
   color: #333;
   font-family: poetsen;
   font-size: large;
+  overflow-x: hidden; /* Menyembunyikan overflow horizontal */
 }
 
 /*=============== GOOGLE FONTS ===============*/
@@ -57,6 +59,7 @@ body {
   font-family: var(--body-font);
   font-size: var(--normal-font-size);
   background-color: #ffd700;
+  overflow-x: hidden; /* Menyembunyikan overflow horizontal */
 }
 
 ul {
@@ -69,8 +72,11 @@ a {
 
 /*=============== REUSABLE CSS CLASSES ===============*/
 .container {
+  width: 100%;
   max-width: 1120px;
-  margin-inline: 1.5rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
 }
 
 /*=============== HEADER & NAV ===============*/
@@ -89,6 +95,7 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-family: "chewy";
 }
 
 .nav__logo img {
@@ -284,7 +291,6 @@ a {
   }
 }
 
-
 /*===================================== MAIN MENU ===============*/
 
 .hero-section {
@@ -294,8 +300,7 @@ a {
   color: rgb(9, 8, 8);
   padding: 5px 20px;
   text-align: center;
-  border-bottom: 5px solid #ffd700 ;
-  
+  border-bottom: 5px solid #ffd700;
 }
 
 .hero-content {
@@ -316,7 +321,7 @@ a {
   padding: 10px;
 }
 
-.hero-section p:hover{
+.hero-section p:hover {
   transform: scale(1.05);
 }
 
@@ -343,7 +348,6 @@ a {
 .logo-mamee img:active {
   transform: scale(1.2); /* Mengubah skala gambar saat di-klik */
 }
-
 
 /*=================== BUY SECTION CA========================*/
 .buy-section {
@@ -398,10 +402,10 @@ a {
   font-size: 40px;
   border-radius: 5px;
   margin: 10px auto;
-  padding: 10PX;
+  padding: 10px;
 }
 
-.buy-section-details h2:hover{
+.buy-section-details h2:hover {
   transform: scale(1.05);
 }
 
@@ -425,8 +429,6 @@ a {
   filter: brightness(0.7);
 }
 
-
-
 /*=================== MEMES SECTION========================*/
 .memes-section {
   color: black;
@@ -434,11 +436,11 @@ a {
   margin: 60px auto;
   padding-top: 10px;
   width: 900px;
+  text-align: center;
 }
 
 .memes-section h1 {
   margin: 20px auto;
-  text-align: center;
   font-family: "chewy";
   font-size: 90px;
   margin-top: 0px;
@@ -469,7 +471,7 @@ a {
   align-items: center;
   height: 83vh; /* Set height to 100% of the viewport height */
   width: 100%;
-  background-color: #ffd700; 
+  background-color: #ffd700;
   border: none;
 }
 
@@ -501,10 +503,12 @@ a {
   font-size: 90px;
   margin-bottom: 0px;
 }
-.before-eat, .after-eat {
+.before-eat,
+.after-eat {
   display: none;
 }
-.before-eat img, .after-eat img {
+.before-eat img,
+.after-eat img {
   width: 300px;
   height: auto;
   transition: opacity 0.5s ease;
@@ -573,7 +577,6 @@ a {
   font-size: 90px;
   margin-bottom: 15px;
   color: #000000;
-  
 }
 
 .mamee-song {
@@ -603,8 +606,8 @@ a {
 }
 
 .play-button:hover {
-    background-color: #0e74e1;
-    color: #ffffff;
+  background-color: #0e74e1;
+  color: #ffffff;
 }
 
 #songSlider {
@@ -621,81 +624,87 @@ footer {
 
 /* ============================Responsive Design==================== */
 @media (max-width: 768px) {
+  .nav__menu {
+    width: 80%;
+  }
   .hero-section {
-    padding: 0px 10px;
-  }
-
-  .hero-content {
-    padding: 0px;
-  }
-
-  .hero-section h1 {
-    font-size: 7.5em;
-    margin: 40px auto;
-    padding: 0;
-  }
-
-  .hero-section p {
-    font-size: 2em;
-    margin-top: 30px;
     padding: 10px;
-    margin-bottom: 10px;
+    height: 790px;
+    background-image: url(images/bg/background.png);
+    display: flex;
+    background-size: cover;
+    background-position: center;
+  }
+  .hero-section h1 {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 80px;
   }
 
   .logo-mamee img {
-    margin-top: -20px;
-    width: 380px;
-    max-width: 400px;
+    margin-bottom: 0px;
+    width: 270px;
+    max-width: 300px;
+    border: 5px solid white;
   }
+  .logo-mamee img:active {
+    transform: scale(1.15); /* Mengubah skala gambar saat di-klik */
+  }
+  .hero-section p {
+    font-size: 24px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+
   .buy-section {
-    margin-top: 40px;
-    height: 68vh;
-    padding-bottom: 0PX;
+    margin-top: 30px;
+    height: 43vh;
   }
 
   .buy-section-details h1 {
     margin-top: 10px;
-    font-size: 60px;
+    font-size: 55px;
   }
   .buy-section-details h2 {
-    font-size: 25px;
+    font-size: 22px;
+  }
+  .buy-section-details a {
+    padding: 0px;
   }
   .buy-section-details a img {
-    width: 60px;
-    height: 60px;
-    margin-bottom: 95px;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 145px;
   }
 
   .memes-section {
-    margin-top: 70px;
+    margin-top: 30px;
     padding-top: 20px;
-    padding-bottom: 0PX;
-    width: 400px;
-  }
-
-  .meme-gallery{
-    gap: 5px;
+    width: 90%; /* Menggunakan persentase untuk lebar agar lebih responsif */
   }
 
   .memes-section h1 {
-    font-size: 60px;
+    font-size: 48px;
+  }
+
+  .meme-gallery {
+    gap: 5px;
   }
 
   .meme-gallery img {
-    width: 400px;
-    height: 400px;
-    max-width: 500px;
-    max-height: 500px;
+    width: 100%; /* Menggunakan 100% untuk menyesuaikan ukuran container */
+    height: 280px; /* Otomatis menyesuaikan tinggi */
   }
 
   .tokenomics-section {
-    margin-top: 5px;
+    margin-top: -80px;
     padding-top: 0px;
-    padding-bottom: 0PX;
+    margin-bottom: 10px;
   }
 
-  .eat-section{
-    margin-top: 40px;
+  .eat-section {
+    margin-top: -50px;
     height: 600px;
   }
   .eat-content h1 {
@@ -703,16 +712,17 @@ footer {
     margin-bottom: 20px;
   }
   .eat-content img {
-    width:  300px;
+    width: 300px;
     height: 300px;
   }
-  #click-counter, .click-count {
+  #click-counter,
+  .click-count {
     margin-top: 10px;
   }
-  .btn-eat{
+  .btn-eat {
     margin-top: 20px;
   }
-  .song-section{
+  .song-section {
     margin-top: 0px;
     margin-bottom: 85px;
   }
@@ -720,19 +730,19 @@ footer {
     font-size: 60px;
     margin-bottom: 30px;
   }
-  
+
+  h1,
+  .hero-section p {
+    animation: none;
+  }
 }
-
-
-
-
-
 
 /*================= animasi =======================*/
-h1,.hero-section p {
+
+h1,
+.hero-section p {
   animation: pulseText 1.5s ease-in-out infinite;
 }
-
 
 @keyframes pulseText {
   0% {
