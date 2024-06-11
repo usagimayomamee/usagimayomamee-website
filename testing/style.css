@@ -1,0 +1,771 @@
+body,
+html {
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #ffe200;
+  color: #333;
+  font-family: poetsen;
+  font-size: large;
+  overflow-x: hidden; /* Menyembunyikan overflow horizontal */
+}
+
+/*=============== GOOGLE FONTS ===============*/
+@import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500&display=swap");
+
+/*=============== VARIABLES CSS ===============*/
+:root {
+  --header-height: 3.5rem;
+
+  /*========== Colors ==========*/
+  /*Color mode HSL(hue, saturation, lightness)*/
+  --white-color: hsl(0, 0%, 100%);
+  --black-color: hsl(0, 0%, 0%);
+
+  /*========== Font and typography ==========*/
+  /*.5rem = 8px | 1rem = 16px ...*/
+  --body-font: "Montserrat Alternates", sans-serif;
+  --h1-font-size: 1.5rem;
+  --normal-font-size: 0.938rem;
+
+  /*========== Font weight ==========*/
+  --font-regular: 400;
+  --font-medium: 500;
+
+  /*========== z index ==========*/
+  --z-tooltip: 10;
+  --z-fixed: 100;
+}
+
+/*========== Responsive typography ==========*/
+@media screen and (min-width: 1150px) {
+  :root {
+    --normal-font-size: 1rem;
+  }
+}
+
+/*=============== BASE ===============*/
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  background-color: #ffd700;
+  overflow-x: hidden; /* Menyembunyikan overflow horizontal */
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+/*=============== REUSABLE CSS CLASSES ===============*/
+.container {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+}
+
+/*=============== HEADER & NAV ===============*/
+.header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: var(--black-color);
+  z-index: var(--z-fixed);
+}
+
+.nav {
+  position: relative;
+  height: var(--header-height);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "chewy";
+}
+
+.nav__logo img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-top: 3.5px;
+  border: 2px solid #ffffff;
+}
+
+.nav__close,
+.nav__toggle {
+  display: flex;
+  color: var(--white-color);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Navigation for mobile devices */
+@media screen and (max-width: 1150px) {
+  .nav__menu {
+    position: fixed;
+    left: -100%;
+    top: 0;
+    background-color: var(--black-color);
+    width: 100%;
+    height: 100%;
+    padding: 6rem 3.5rem 4.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: left 0.4s;
+  }
+
+  .nav__item {
+    transform: translateX(-150px);
+    visibility: hidden;
+    transition: transform 0.4s ease-out, visibility 0.4s;
+  }
+
+  .nav__item:nth-child(1) {
+    transition-delay: 0.1s;
+  }
+  .nav__item:nth-child(2) {
+    transition-delay: 0.2s;
+  }
+  .nav__item:nth-child(3) {
+    transition-delay: 0.3s;
+  }
+  .nav__item:nth-child(4) {
+    transition-delay: 0.4s;
+  }
+  .nav__item:nth-child(5) {
+    transition-delay: 0.5s;
+  }
+}
+
+.nav__list,
+.nav__social {
+  display: flex;
+}
+
+.nav__list {
+  flex-direction: column;
+  row-gap: 3rem;
+}
+
+.nav__link {
+  position: relative;
+  color: var(--white-color);
+  font-size: var(--h1-font-size);
+  font-weight: var(--font-medium);
+  display: inline-flex;
+  align-items: center;
+  transition: opacity 0.4s;
+}
+
+.nav__link i {
+  font-size: 2rem;
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s, visibility 0.4s;
+}
+
+.nav__link span {
+  position: relative;
+  transition: margin 0.4s;
+}
+
+.nav__link span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 2px;
+  background-color: var(--white-color);
+  transition: width 0.4s ease-out;
+}
+
+/* Animation link on hover */
+.nav__link:hover span {
+  margin-left: 2.5rem;
+}
+
+.nav__link:hover i {
+  opacity: 1;
+  visibility: visible;
+}
+
+.nav__link:hover span::after {
+  width: 100%;
+}
+
+/* Sibling fade animation */
+.nav__list:has(.nav__link:hover) .nav__link:not(:hover) {
+  opacity: 0.4;
+}
+
+.nav__close {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+}
+
+.nav__social {
+  column-gap: 1rem;
+}
+
+.nav__social-link {
+  color: var(--white-color);
+  font-size: 1.5rem;
+  transition: transform 0.4s;
+}
+
+.nav__social-link:hover {
+  transform: translateY(-0.25rem);
+}
+
+/* Show menu */
+.show-menu {
+  left: 0;
+}
+
+/* Animation link when displaying menu */
+.show-menu .nav__item {
+  visibility: visible;
+  transform: translateX(0);
+}
+
+/*=============== BREAKPOINTS ===============*/
+/* For large devices */
+@media screen and (min-width: 1150px) {
+  .container {
+    margin-inline: auto;
+  }
+
+  .nav {
+    height: calc(var(--header-height) + 2rem);
+  }
+
+  .nav__logo img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin-top: 3.5px;
+    border: 3.5px solid #ffffff;
+  }
+
+  .nav__toggle,
+  .nav__close {
+    display: none;
+  }
+
+  .nav__link {
+    font-size: var(--normal-font-size);
+  }
+
+  .nav__link i {
+    font-size: 1.5rem;
+  }
+
+  .nav__list {
+    flex-direction: row;
+    column-gap: 3.5rem;
+  }
+
+  .nav__menu {
+    display: flex;
+    align-items: center;
+    column-gap: 3.5rem;
+  }
+}
+
+/*===================================== MAIN MENU ===============*/
+
+.hero-section {
+  margin-top: 40px;
+  padding-bottom: 10px;
+  background-color: #ffd700;
+  color: rgb(9, 8, 8);
+  padding: 5px 20px;
+  text-align: center;
+  border-bottom: 20px solid #ffd700;
+}
+
+.hero-content {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.hero-section h1 {
+  font-size: 120px;
+  margin-top: 35px;
+  font-family: "chewy";
+}
+
+.hero-section p {
+  font-family: "chewy";
+  font-size: 40px;
+  margin-top: 35px;
+  padding: 10px;
+}
+
+.hero-section p:hover {
+  transform: scale(1.05);
+}
+
+.logo-mamee {
+  display: flex;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.logo-mamee img {
+  margin-top: 10px;
+  width: 350px;
+  max-width: 500px;
+  height: auto;
+  border: 10px solid rgb(255, 255, 255);
+  border-radius: 50%;
+  transition: transform 0.3s ease, width 0.3s ease;
+}
+
+.logo-mamee img:hover {
+  transform: scale(1.1); /* Mengubah skala gambar saat di-hover */
+}
+
+.logo-mamee img:active {
+  transform: scale(1.2); /* Mengubah skala gambar saat di-klik */
+}
+
+/*=================== BUY SECTION CA========================*/
+.buy-section {
+  margin-top: -35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 95vh;
+  width: 100%;
+  background-image: url(images/bg/background.png);
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+}
+
+.buy-section-details {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  padding: 10px;
+}
+
+.buy-section-details img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 70px;
+  border: 4px solid rgb(255, 255, 255);
+}
+
+.buy-section-details h1 {
+  position: relative;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  font-family: "chewy";
+  font-size: 90px;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px auto;
+}
+
+.buy-section-details h2 {
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 6px 10px rgba(32, 33, 19, 0.3);
+  color: rgb(0, 0, 0);
+  text-align: center;
+  font-family: "chewy";
+  font-size: 40px;
+  border-radius: 5px;
+  margin: 10px auto;
+  padding: 10px;
+}
+
+.buy-section-details h2:hover {
+  transform: scale(1.05);
+}
+
+.buy-section-details-content {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.buy-section-details a img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.buy-section-details a:hover img {
+  transform: scale(1.1);
+  filter: brightness(0.7);
+}
+
+/*=================== MEMES SECTION========================*/
+.memes-section {
+  color: black;
+  background-color: #ffd700;
+  margin: 60px auto;
+  padding-top: 10px;
+  width: 900px;
+  text-align: center;
+}
+
+.memes-section h1 {
+  margin: 20px auto;
+  font-family: "chewy";
+  font-size: 90px;
+  margin-top: 0px;
+  margin-bottom: 20px;
+}
+
+.meme-gallery {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.meme-gallery img {
+  width: 200px;
+  height: 200px;
+  max-width: 500px;
+  max-height: 500px;
+  border-radius: 10px;
+}
+
+/*=================== TOKENOMICS SECTION========================*/
+.tokenomics-section {
+  margin-top: 100px;
+  margin-bottom: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 83vh; /* Set height to 100% of the viewport height */
+  width: 100%;
+  background-color: #ffd700;
+  border: none;
+}
+
+.tokenomics-details {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 110%;
+  height: 100%;
+  border: none;
+}
+
+.tokenomics-details video {
+  max-width: 110%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  border: none;
+}
+
+/*================================ eat section===========================*/
+.eat-section {
+  text-align: center;
+  margin-top: 10px;
+}
+.eat-content h1 {
+  font-family: "chewy";
+  color: #000000;
+  font-size: 90px;
+  margin-bottom: 0px;
+}
+.before-eat,
+.after-eat {
+  display: none;
+}
+.before-eat img,
+.after-eat img {
+  width: 300px;
+  height: auto;
+  transition: opacity 0.5s ease;
+}
+.click-count {
+  margin-top: 10px;
+  font-family: "chewy";
+  font-size: 32px;
+  color: #000000;
+}
+.visible {
+  display: block;
+}
+.btn-eat {
+  display: inline-block;
+  padding: 20px 40px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-family: "chewy";
+  font-size: 32px;
+  color: rgb(0, 0, 0);
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.btn-eat:hover {
+  background-color: #0e74e1;
+  color: #ffffff;
+}
+.btn-eat:active {
+  transform: scale(0.95);
+}
+
+/*===================== Song Section =========================*/
+.song-section {
+  margin-top: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.song-card {
+  background-color: #ffd700;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  width: 300px;
+  height: 430px;
+}
+
+.song-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.song-section h1 {
+  margin-top: 25px;
+  font-family: "chewy";
+  font-size: 90px;
+  margin-bottom: 15px;
+  color: #000000;
+}
+
+.mamee-song {
+  position: relative;
+}
+
+.mamee-song img {
+  width: 200px;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.play-button {
+  display: inline-block;
+  padding: 20px 40px;
+  margin-top: 10px;
+  margin-bottom: 50px;
+  font-family: "chewy";
+  font-size: 32px;
+  color: rgb(0, 0, 0);
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.play-button:hover {
+  background-color: #0e74e1;
+  color: #ffffff;
+}
+
+#songSlider {
+  width: 200px;
+  margin-top: 20px;
+}
+/*=================== FOOTER SECTION========================*/
+footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+/* ============================Responsive Design==================== */
+@media (max-width: 820px) {
+  .nav__menu {
+    width: 80%;
+  }
+  .hero-section {
+    padding: 10px;
+    height: 790px;
+    background-image: url(images/bg/background.png);
+    display: flex;
+    background-size: cover;
+    background-position: center;
+  }
+  .hero-section h1 {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 80px;
+  }
+
+  .logo-mamee img {
+    margin-bottom: 0px;
+    width: 270px;
+    max-width: 300px;
+    border: 5px solid white;
+  }
+  .logo-mamee img:active {
+    transform: scale(1.15); /* Mengubah skala gambar saat di-klik */
+  }
+  .hero-section p {
+    font-size: 24px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+
+  .buy-section {
+    margin-top: 52px;
+    height: 43vh;
+    background-image: none;
+  }
+
+  .buy-section-details h1 {
+    margin-top: 10px;
+    font-size: 55px;
+  }
+  .buy-section-details h2 {
+    font-size: 13px;
+  }
+  .buy-section-details-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.327);
+    box-shadow: 0 6px 10px rgba(32, 33, 19, 0.3);
+    border-radius: 23%;
+    width: 300px;
+  }
+  .buy-section-details a {
+    padding: 0px;
+    flex: 0 0 20%; /* Set each anchor to take up one-third the width */
+    display: flex;
+    justify-content: center;
+  }
+  .buy-section-details a img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+  
+  .memes-section {
+    margin-top: 70px;
+    padding-top: 20px;
+    width: 90%; /* Menggunakan persentase untuk lebar agar lebih responsif */
+  }
+
+  .memes-section h1 {
+    font-size: 45px;
+  }
+
+  .meme-gallery {
+    gap: 5px;
+  }
+
+  .meme-gallery img {
+    width: 100%; /* Menggunakan 100% untuk menyesuaikan ukuran container */
+    height: 280px; /* Otomatis menyesuaikan tinggi */
+  }
+
+  .tokenomics-section {
+    margin-top: -80px;
+    padding-top: 0px;
+    margin-bottom: 10px;
+  }
+
+  .eat-section {
+    margin-top: -20px;
+    height: 600px;
+  }
+  .eat-content h1 {
+    font-size: 60px;
+    margin-bottom: 20px;
+  }
+  .eat-content img {
+    width: 300px;
+    height: 300px;
+  }
+  #click-counter,
+  .click-count {
+    margin-top: 10px;
+  }
+  .btn-eat {
+    margin-top: 20px;
+  }
+  .song-section {
+    margin-top: 0px;
+    margin-bottom: 85px;
+  }
+  .song-section h1 {
+    font-size: 57px;
+    margin-bottom: 30px;
+  }
+
+  h1,
+  .hero-section p {
+    animation: none;
+  }
+}
+
+/*================= animasi =======================*/
+
+h1,
+.hero-section p {
+  animation: pulseText 1.5s ease-in-out infinite;
+}
+
+@keyframes pulseText {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
